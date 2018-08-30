@@ -1,34 +1,31 @@
-import React, { Component } from 'react'
-import './App.css'
-import { getUser } from './github'
+import React, { Component } from 'react';
+import { getUser } from './github';
 
-const renderLine = (user, key) => <li key={key}><b>{key}</b>: {user[key]}</li>
+const renderLine = (user,key)=> <li key={key}>{key}: {user[key]}</li>
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { user: {} }
+  constructor(props){
+    super(props);
+    this.state = {user: {}}
   }
-
-  componentDidMount () {
-    getUser('vnglst').then(data => {
-      this.setState({ user: data.entity })
+  componentDidMount(){
+    getUser('pavilion2t').then(data=>{
+      this.setState({user: data.entity})
     })
   }
-
-  render () {
-    const { user } = this.state
+  render() {
+    const user = this.state
     return (
-      <div className='App'>
-        <ul style={{ listStyle: 'none' }}>
+      <div>
+        <ul>
           {
-            // Loop over the object keys and render each key
-            Object.keys(user).map(key => renderLine(user, key))
+            Object.keys(user).map(key=>renderLine(user,key))
           }
         </ul>
+
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
