@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import { getUser } from './github';
+const rest = require('rest');
+const mime = require('rest/interceptor/mime');
+const getUser = user => rest.wrap(mime)(`https://api.github.com/users/${user}`)
 
-const renderLine = (user,key)=> <li key={key}>{key}: {user[key]}</li>
+const renderLine = (user, key) => <li key={key}><b>{key}</b>: {user[key]}</li>
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {user: {}}
+    this.state = { user: {} }
   }
-  componentDidMount(){
-    getUser('pavilion2t').then(data=>{
-      this.setState({user: data.entity})
+  componentDidMount() {
+    getUser('ry').then(data => {
+      this.setState({ user: data.entity })
     })
   }
   render() {
-    const user = this.state
+    const { user } = this.state
+
     return (
       <div>
         <ul>
           {
-            Object.keys(user).map(key=>renderLine(user,key))
+            Object.keys(user).map(key => renderLine(user, key))
           }
         </ul>
 
