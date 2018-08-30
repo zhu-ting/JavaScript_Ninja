@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import rest from 'rest';
 import mime from 'rest/interceptor/mime';
 
+const renderLine = (user, key) => <li key={key}><b>{key}</b>: {user[key]}</li>
+
 class App extends Component {
   constructor(props) {
     super(props);
