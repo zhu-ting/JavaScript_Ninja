@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-const rest = require('rest');
-const mime = require('rest/interceptor/mime');
-const getUser = user => rest.wrap(mime)(`https://api.github.com/users/${user}`)
-
-const renderLine = (user, key) => <li key={key}><b>{key}</b>: {user[key]}</li>
+import rest from 'rest';
+import mime from 'rest/interceptor/mime';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +8,7 @@ class App extends Component {
     this.state = { user: {} }
   }
   componentDidMount() {
+    const getUser = user => rest.wrap(mime)(`https://api.github.com/users/${user}`)
     getUser('ry').then(data => {
       this.setState({ user: data.entity })
     })
